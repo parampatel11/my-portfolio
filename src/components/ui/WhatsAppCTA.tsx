@@ -25,7 +25,7 @@ export default function WhatsAppCTA() {
     };
   }, []);
 
-  const dummyWhatsAppNumber = "919876543210"; 
+  const dummyWhatsAppNumber = "917016263077"; 
   const prefilledMessage = encodeURIComponent("Hi Param, I checked out your portfolio and I am interested in hiring you!");
   const whatsappLink = `https://wa.me/${dummyWhatsAppNumber}?text=${prefilledMessage}`;
 
