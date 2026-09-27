@@ -107,7 +107,7 @@ const HireMeBtn = ({ whatsappLink, isMobile, onClick }: HireMeBtnProps) => {
             {/* Bold Green Arrow */}
             <ArrowRight 
               strokeWidth={2.5} 
-              className="absolute h-5 w-5 -translate-x-8 scale-50 text-green-400 opacity-0 drop-shadow-[0_0_8px_rgba(74,222,128,0.4)] transition-all duration-300 ease-out delay-0 group-hover/hire-btn:translate-x-4 group-hover/hire-btn:scale-110 group-hover/hire-btn:opacity-100 group-hover/hire-btn:drop-shadow-[0_0_16px_rgba(74,222,128,0.9)] group-hover/hire-btn:delay-1000" 
+              className="absolute h-6 w-6 -translate-x-8 scale-50 text-green-400 opacity-0 drop-shadow-[0_0_8px_rgba(74,222,128,0.4)] transition-all duration-300 ease-out delay-0 group-hover/hire-btn:translate-x-4 group-hover/hire-btn:scale-110 group-hover/hire-btn:opacity-100 group-hover/hire-btn:drop-shadow-[0_0_16px_rgba(74,222,128,0.9)] group-hover/hire-btn:delay-1000" 
             />
             
           </span>
