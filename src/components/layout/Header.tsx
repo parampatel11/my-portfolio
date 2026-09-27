@@ -21,10 +21,15 @@ export default function Header() {
 
   const navLinks = [
     { name: "Home", href: "#home" },
-    { name: "Works", href: "#works" },
+    { name: "Projects", href: "#projects" },
     { name: "Resume", href: "#resume" },
     { name: "Contact", href: "#contact" },
   ];
+
+  // WhatsApp Link Configuration
+  const whatsappNumber = "917016263077"; 
+  const prefilledMessage = encodeURIComponent("Hi Param, I checked out your portfolio and I am interested in hiring you!");
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${prefilledMessage}`;
 
   return (
     <motion.header
@@ -39,7 +44,7 @@ export default function Header() {
       // CHANGED: Replaced the morphing rounded-full/3xl with a permanent rounded-2xl
       className={`fixed left-1/2 top-4 z-50 flex w-[90%] max-w-5xl flex-col overflow-hidden rounded-2xl border border-white/5 transition-all duration-500 md:top-6 md:w-[95%] ${
         isScrolled || isMobileMenuOpen
-          ? "bg-[#0a0a0a]/80 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] backdrop-blur-2xl"
+          ? "bg-[#0a0a0a]/30 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] backdrop-blur-2xl"
           : "bg-transparent backdrop-blur-sm"
       }`}
     >
@@ -74,7 +79,9 @@ export default function Header() {
         <div className="relative z-10 flex items-center gap-3">
           {/* Desktop Hire Me Button */}
           <a
-            href="#contact"
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
             className="group relative hidden h-11 w-32 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full p-[2px] transition-transform active:scale-95 md:inline-flex"
           >
             <span className="absolute inset-[-1000%] animate-[spin_2.5s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,#4ade80_50%,#facc15_100%)] opacity-80 transition-opacity group-hover:opacity-100" />
@@ -126,7 +133,9 @@ export default function Header() {
 
               {/* Mobile Hire Me Button */}
               <a
-                href="#contact"
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="group relative mt-1 flex h-12 w-full cursor-pointer items-center justify-center overflow-hidden rounded-full p-[2px] transition-transform active:scale-95"
               >

@@ -64,7 +64,7 @@ export default function Projects() {
   ];
 
   return (
-    <section id="works" className="w-full scroll-mt-24">
+    <section id="projects" className="w-full scroll-mt-24">
       {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -74,7 +74,7 @@ export default function Projects() {
         className="mb-14 flex flex-col gap-2"
       >
         <h2 className="text-3xl font-extrabold text-white md:text-4xl">
-          Featured <span className="bg-gradient-to-r from-yellow-400 to-green-400 bg-clip-text text-transparent">Works</span>
+          My <span className="bg-gradient-to-r from-yellow-400 to-green-400 bg-clip-text text-transparent">Projects</span>
         </h2>
         <p className="text-gray-400">A selection of my recent full-stack and cloud architecture projects.</p>
       </motion.div>
@@ -96,7 +96,7 @@ export default function Projects() {
               <img
                 src={project.image}
                 alt={project.title}
-                className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
+                className="h-full w-full object-cover transition-all duration-700 group-hover:scale-105"
               />
 
               {/* Floating Action Buttons */}

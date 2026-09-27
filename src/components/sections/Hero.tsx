@@ -170,7 +170,7 @@ export default function Hero() {
           
           <div className="relative h-full w-full overflow-hidden rounded-2xl border border-gray-800 bg-gray-900 transition-all duration-500 group-hover:border-green-500/30 group-hover:shadow-[0_0_40px_rgba(74,222,128,0.2)]">
             <img 
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop" 
+              src="/Myphoto.png" 
               alt="Param Patel"
               className="h-full w-full object-cover transition-all duration-700 group-hover:scale-105"
             />
