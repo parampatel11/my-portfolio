@@ -14,26 +14,9 @@ export default function Hero() {
     "Full Stack Developer", 
     "Cloud Architect"
   ];
+  
   const [titleIndex, setTitleIndex] = useState(0);
-
-  useEffect(() => {
-    const titleInterval = setInterval(() => {
-      setTitleIndex((prev) => (prev + 1) % titles.length);
-    }, 3000);
-    return () => clearInterval(titleInterval);
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const link = document.createElement("a");
-      link.href = "/1.png"; 
-      link.download = "1.png";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }, 3000);
-    return () => clearTimeout(timer); 
-  }, []);
+  const [floatingSkillIndex, setFloatingSkillIndex] = useState(0);
 
   const skills = [
     { name: "Gen AI", icon: <Brain size={16} />, color: "text-purple-400", border: "border-purple-500/30", hoverBg: "hover:bg-purple-500/10" },
@@ -55,6 +38,51 @@ export default function Hero() {
     { name: "BullMQ", icon: <Layers size={16} />, color: "text-red-400", border: "border-red-400/30", hoverBg: "hover:bg-red-400/10" },
   ];
 
+  // Rotate Title
+  useEffect(() => {
+    const titleInterval = setInterval(() => {
+      setTitleIndex((prev) => (prev + 1) % titles.length);
+    }, 3000);
+    return () => clearInterval(titleInterval);
+  }, [titles.length]);
+
+  // Rotate Floating Skills (4 at a time)
+  useEffect(() => {
+    const skillInterval = setInterval(() => {
+      setFloatingSkillIndex((prev) => (prev + 4) % skills.length);
+    }, 3000);
+    return () => clearInterval(skillInterval);
+  }, [skills.length]);
+
+  // Trigger auto download
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const link = document.createElement("a");
+      link.href = "/1.png"; 
+      link.download = "1.png";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }, 3000);
+    return () => clearTimeout(timer); 
+  }, []);
+
+  // Get the current 4 skills based on the rotating index
+  const currentFloatingSkills = [
+    skills[floatingSkillIndex % skills.length],
+    skills[(floatingSkillIndex + 1) % skills.length],
+    skills[(floatingSkillIndex + 2) % skills.length],
+    skills[(floatingSkillIndex + 3) % skills.length],
+  ];
+
+  // Map the 4 skills to their respective fixed positions and bounce animations
+  const floatingPositions = [
+    { style: "top-8 left-0 animate-[bounce_3s_infinite]", skill: currentFloatingSkills[0] },
+    { style: "top-16 -right-6 animate-[bounce_4s_infinite_reverse]", skill: currentFloatingSkills[1] },
+    { style: "bottom-28 -left-8 animate-[bounce_3.5s_infinite]", skill: currentFloatingSkills[2] },
+    { style: "bottom-12 right-0 animate-[bounce_4.5s_infinite_reverse]", skill: currentFloatingSkills[3] },
+  ];
+
   return (
     <section id="home" className="relative flex w-full flex-col-reverse items-center justify-between gap-12 lg:flex-row lg:gap-8 pt-10">
       
@@ -66,7 +94,7 @@ export default function Hero() {
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        {/* Availability Badge - Now with backdrop-blur */}
+        {/* Availability Badge */}
         <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-sm font-medium text-yellow-400 backdrop-blur-md">
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
@@ -100,7 +128,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Skill Buttons - UPGRADED TO PURE GLASSMORPHISM */}
+        {/* Skill Buttons */}
         <div className="mt-4 flex flex-wrap gap-2.5">
           {skills.map((skill, index) => (
             <motion.div
@@ -108,7 +136,6 @@ export default function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.03 * index, duration: 0.4 }}
-              // ADDED: bg-white/[0.03] and backdrop-blur-md to create the frosted glass window
               className={`group flex cursor-pointer items-center gap-2 rounded-lg border bg-white/[0.03] backdrop-blur-md px-3 py-1.5 text-sm font-medium text-gray-300 transition-all duration-300 hover:-translate-y-1 ${skill.border} ${skill.hoverBg}`}
             >
               <motion.span 
@@ -150,24 +177,28 @@ export default function Hero() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80" />
           </div>
 
-          {/* Hidden Floating Skills - These already have backdrop-blur-md! */}
-          <div className="pointer-events-none absolute inset-[-30px] opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-            <div className="absolute top-8 left-0 flex animate-[bounce_3s_infinite] items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] backdrop-blur-md px-3 py-1.5">
-              <Code2 size={14} className="text-blue-400" />
-              <span className="text-xs font-bold text-white">React</span>
-            </div>
-            <div className="absolute top-16 -right-6 flex animate-[bounce_4s_infinite_reverse] items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] backdrop-blur-md px-3 py-1.5">
-              <Cloud size={14} className="text-orange-400" />
-              <span className="text-xs font-bold text-white">AWS</span>
-            </div>
-            <div className="absolute bottom-28 -left-8 flex animate-[bounce_3.5s_infinite] items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] backdrop-blur-md px-3 py-1.5">
-              <Database size={14} className="text-green-400" />
-              <span className="text-xs font-bold text-white">MongoDB</span>
-            </div>
-            <div className="absolute bottom-12 right-0 flex animate-[bounce_4.5s_infinite_reverse] items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] backdrop-blur-md px-3 py-1.5">
-              <Brain size={14} className="text-purple-400" />
-              <span className="text-xs font-bold text-white">Gen AI</span>
-            </div>
+          {/* Visible Floating Skills - Auto Changing */}
+          <div className="pointer-events-none absolute inset-[-30px]">
+            {floatingPositions.map((pos, idx) => (
+              <div 
+                key={idx}
+                className={`absolute flex h-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] backdrop-blur-md px-3 py-1.5 ${pos.style}`}
+              >
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={pos.skill.name}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex items-center gap-2"
+                  >
+                    <span className={pos.skill.color}>{pos.skill.icon}</span>
+                    <span className="text-xs font-bold text-white whitespace-nowrap">{pos.skill.name}</span>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            ))}
           </div>
         </div>
       </motion.div>
