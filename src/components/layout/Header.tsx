@@ -3,19 +3,128 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 
+// 1. TypeScript Interface for the SVG Icon
+interface WhatsAppIconProps {
+  className?: string;
+}
+
+const WhatsAppIcon = ({ className }: WhatsAppIconProps) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+  </svg>
+);
+
+const hoverPhrases = [
+  "Hmm, interested?",
+  "Like my profile?",
+  "Click for convo!",
+  "Let's talk!",
+  "Got a project?",
+  "Drop a message!",
+  "Say hi!",
+  "Ready to hire?",
+];
+
+// 5 Specific Transparent Glassmorphism Themes
+const tooltipThemes = [
+  // 1. Emerald
+  { box: "border-emerald-500/40 bg-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.25)]", pointer: "border-emerald-500/40" },
+  // 2. Yellowish Amber type
+  { box: "border-amber-500/40 bg-amber-500/20 shadow-[0_0_20px_rgba(245,158,11,0.25)]", pointer: "border-amber-500/40" },
+  // 3. Bluish type
+  { box: "border-blue-500/40 bg-blue-500/20 shadow-[0_0_20px_rgba(59,130,246,0.25)]", pointer: "border-blue-500/40" },
+  // 4. Orange type
+  { box: "border-orange-500/40 bg-orange-500/20 shadow-[0_0_20px_rgba(249,115,22,0.25)]", pointer: "border-orange-500/40" },
+  // 5. Red Apple type
+  { box: "border-red-500/40 bg-red-500/20 shadow-[0_0_20px_rgba(239,68,68,0.25)]", pointer: "border-red-500/40" },
+];
+
+// 2. TypeScript Interface for the Button
+interface HireMeBtnProps {
+  whatsappLink: string;
+  isMobile?: boolean;
+  onClick?: () => void;
+}
+
+// 3. Reusable Button Component
+const HireMeBtn = ({ whatsappLink, isMobile, onClick }: HireMeBtnProps) => {
+  const [phrase, setPhrase] = useState(hoverPhrases[0]);
+  const [theme, setTheme] = useState(tooltipThemes[0]);
+
+  const handleHover = () => {
+    const randomPhrase = hoverPhrases[Math.floor(Math.random() * hoverPhrases.length)];
+    const randomTheme = tooltipThemes[Math.floor(Math.random() * tooltipThemes.length)];
+    setPhrase(randomPhrase);
+    setTheme(randomTheme);
+  };
+
+  return (
+    <div
+      className={`group/hire-btn relative ${
+        isMobile ? "mt-1 flex w-full" : "hidden shrink-0 md:inline-flex"
+      }`}
+      onMouseEnter={handleHover}
+    >
+      {/* 1s Delayed Dynamic Colorful Tooltip Popup */}
+      <div className="pointer-events-none absolute -bottom-14 left-1/2 z-[100] flex -translate-x-1/2 -translate-y-2 items-center justify-center opacity-0 transition-all duration-300 ease-out delay-0 group-hover/hire-btn:translate-y-0 group-hover/hire-btn:opacity-100 group-hover/hire-btn:delay-1000">
+        
+        {/* Colorful Glassmorphism Box */}
+        <div className={`relative whitespace-nowrap rounded-lg border px-3.5 py-1.5 text-xs font-semibold tracking-wide text-white backdrop-blur-md transition-colors duration-300 ${theme.box}`}>
+          {phrase}
+          
+          {/* Matching Glassmorphism Top Pointer */}
+          <div className={`absolute -top-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 rounded-sm border-l border-t bg-[#0a0a0a] backdrop-blur-md transition-colors duration-300 ${theme.pointer}`} />
+        </div>
+      </div>
+
+      <a
+        href={whatsappLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={onClick}
+        className={`group/btn relative flex cursor-pointer items-center justify-center overflow-hidden rounded-full p-[2px] transition-transform active:scale-95 ${
+          isMobile ? "h-12 w-full" : "h-11 w-32"
+        }`}
+      >
+        {/* Animated Spin Border */}
+        <span className="absolute inset-[-1000%] animate-[spin_2.5s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,#4ade80_50%,#facc15_100%)] opacity-80 transition-opacity group-hover/btn:opacity-100" />
+
+        {/* Inner Black Pill */}
+        <span className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-[#0a0a0a] px-6 py-1 text-sm font-bold text-white backdrop-blur-3xl transition-colors group-hover/btn:bg-[#111111]">
+          {/* Primary Text */}
+          <span className="absolute flex h-full w-full items-center justify-center transition-all duration-300 ease-out group-hover/btn:-translate-y-full group-hover/btn:opacity-0">
+            Hire Me
+          </span>
+
+          {/* Icons Wrapper */}
+          <span className="absolute flex h-full w-full translate-y-full items-center justify-center opacity-0 transition-all duration-300 ease-out group-hover/btn:translate-y-0 group-hover/btn:opacity-100">
+            
+            {/* WhatsApp Icon */}
+            <WhatsAppIcon className="h-[22px] w-[22px] text-green-400 drop-shadow-[0_0_8px_rgba(74,222,128,0.4)] transition-all duration-300 ease-out delay-0 group-hover/hire-btn:-translate-x-3.5 group-hover/hire-btn:scale-110 group-hover/hire-btn:drop-shadow-[0_0_16px_rgba(74,222,128,0.9)] group-hover/hire-btn:delay-1000" />
+            
+            {/* Bold Green Arrow */}
+            <ArrowRight 
+              strokeWidth={2.5} 
+              className="absolute h-5 w-5 -translate-x-8 scale-50 text-green-400 opacity-0 drop-shadow-[0_0_8px_rgba(74,222,128,0.4)] transition-all duration-300 ease-out delay-0 group-hover/hire-btn:translate-x-4 group-hover/hire-btn:scale-110 group-hover/hire-btn:opacity-100 group-hover/hire-btn:drop-shadow-[0_0_16px_rgba(74,222,128,0.9)] group-hover/hire-btn:delay-1000" 
+            />
+            
+          </span>
+        </span>
+      </a>
+    </div>
+  );
+};
+
+// 4. Main Header Component
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -26,9 +135,11 @@ export default function Header() {
     { name: "Contact", href: "#contact" },
   ];
 
-  // WhatsApp Link Configuration
-  const whatsappNumber = "917016263077"; 
-  const prefilledMessage = encodeURIComponent("Hi Param, I checked out your portfolio and I am interested in hiring you!");
+  // WhatsApp Link Config
+  const whatsappNumber = "917016263077";
+  const prefilledMessage = encodeURIComponent(
+    "Hi Param, I checked out your portfolio and I am interested in hiring you!"
+  );
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${prefilledMessage}`;
 
   return (
@@ -41,8 +152,7 @@ export default function Header() {
         type: "spring",
         stiffness: 100,
       }}
-      // CHANGED: Replaced the morphing rounded-full/3xl with a permanent rounded-2xl
-      className={`fixed left-1/2 top-4 z-50 flex w-[90%] max-w-5xl flex-col overflow-hidden rounded-2xl border border-white/5 transition-all duration-500 md:top-6 md:w-[95%] ${
+      className={`fixed left-1/2 top-4 z-50 flex w-[90%] max-w-5xl flex-col rounded-2xl border border-white/5 transition-all duration-500 md:top-6 md:w-[95%] ${
         isScrolled || isMobileMenuOpen
           ? "bg-[#0a0a0a]/30 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] backdrop-blur-2xl"
           : "bg-transparent backdrop-blur-sm"
@@ -78,18 +188,7 @@ export default function Header() {
         {/* Right Side Actions */}
         <div className="relative z-10 flex items-center gap-3">
           {/* Desktop Hire Me Button */}
-          <a
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative hidden h-11 w-32 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full p-[2px] transition-transform active:scale-95 md:inline-flex"
-          >
-            <span className="absolute inset-[-1000%] animate-[spin_2.5s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,#4ade80_50%,#facc15_100%)] opacity-80 transition-opacity group-hover:opacity-100" />
-
-            <span className="inline-flex h-full w-full items-center justify-center rounded-full bg-[#0a0a0a] px-6 py-1 text-sm font-bold text-white backdrop-blur-3xl transition-colors group-hover:bg-[#111111]">
-              Hire Me
-            </span>
-          </a>
+          <HireMeBtn whatsappLink={whatsappLink} isMobile={false} />
 
           {/* Mobile Hamburger */}
           <button
@@ -110,7 +209,7 @@ export default function Header() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="w-full md:hidden"
+            className="w-full overflow-hidden md:hidden"
           >
             <motion.div
               initial={{ y: -20, opacity: 0 }}
@@ -132,19 +231,11 @@ export default function Header() {
               ))}
 
               {/* Mobile Hire Me Button */}
-              <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
+              <HireMeBtn
+                whatsappLink={whatsappLink}
+                isMobile={true}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="group relative mt-1 flex h-12 w-full cursor-pointer items-center justify-center overflow-hidden rounded-full p-[2px] transition-transform active:scale-95"
-              >
-                <span className="absolute inset-[-1000%] animate-[spin_2.5s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,#4ade80_50%,#facc15_100%)] opacity-80" />
-
-                <span className="inline-flex h-full w-full items-center justify-center rounded-full bg-[#0a0a0a] px-6 py-1 text-sm font-bold text-white backdrop-blur-3xl">
-                  Hire Me
-                </span>
-              </a>
+              />
             </motion.div>
           </motion.div>
         )}
