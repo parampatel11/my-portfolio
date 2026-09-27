@@ -36,9 +36,8 @@ export default function Header() {
         type: "spring",
         stiffness: 100,
       }}
-      className={`fixed left-1/2 top-4 z-50 flex w-[90%] max-w-5xl flex-col overflow-hidden border border-white/5 transition-all duration-500 md:top-6 md:w-[95%] ${
-        isMobileMenuOpen ? "rounded-3xl" : "rounded-full"
-      } ${
+      // CHANGED: Replaced the morphing rounded-full/3xl with a permanent rounded-2xl
+      className={`fixed left-1/2 top-4 z-50 flex w-[90%] max-w-5xl flex-col overflow-hidden rounded-2xl border border-white/5 transition-all duration-500 md:top-6 md:w-[95%] ${
         isScrolled || isMobileMenuOpen
           ? "bg-[#0a0a0a]/80 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] backdrop-blur-2xl"
           : "bg-transparent backdrop-blur-sm"
@@ -106,7 +105,13 @@ export default function Header() {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="w-full md:hidden"
           >
-            <div className="flex flex-col gap-3 border-t border-white/10 px-4 pb-5 pt-3">
+            <motion.div
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -20, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="flex flex-col gap-3 border-t border-white/10 px-4 pb-5 pt-3"
+            >
               {/* Navigation Links */}
               {navLinks.map((link) => (
                 <Link
@@ -131,7 +136,7 @@ export default function Header() {
                   Hire Me
                 </span>
               </a>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
