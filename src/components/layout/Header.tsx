@@ -17,14 +17,14 @@ const WhatsAppIcon = ({ className }: WhatsAppIconProps) => (
 );
 
 const hoverPhrases = [
-  "Hmm, interested?",
-  "Like my profile?",
-  "Click for convo!",
-  "Let's talk!",
-  "Got a project?",
-  "Drop a message!",
-  "Say hi!",
-  "Ready to hire?",
+  "Let's talk.",
+  "Got an idea?",
+  "Need a dev?",
+  "Let's create.",
+  "Have a role?",
+  "Build together?",
+  "Let's connect.",
+  "Start something?",
 ];
 
 // 5 Specific Transparent Glassmorphism Themes
@@ -39,6 +39,10 @@ const tooltipThemes = [
   { box: "border-orange-500/40 bg-orange-500/20 shadow-[0_0_20px_rgba(249,115,22,0.25)]", pointer: "border-orange-500/40" },
   // 5. Red Apple type
   { box: "border-red-500/40 bg-red-500/20 shadow-[0_0_20px_rgba(239,68,68,0.25)]", pointer: "border-red-500/40" },
+  // 6. Vibrant Violet (Rich Purple)
+  { box: "border-violet-500/40 bg-violet-500/20 shadow-[0_0_20px_rgba(139,92,246,0.25)]", pointer: "border-violet-500/40" },
+  // 7. Rose Pink
+  { box: "border-rose-500/40 bg-rose-500/20 shadow-[0_0_20px_rgba(244,63,94,0.25)]", pointer: "border-rose-500/40" },
 ];
 
 // 2. TypeScript Interface for the Button
