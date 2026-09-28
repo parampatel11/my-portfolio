@@ -12,7 +12,7 @@ export default function WhatsAppCTA() {
     // After 1 second, expand the button to show the text
     const expandTimer = setTimeout(() => {
       setStep(2);
-    }, 1000);
+    }, 2000);
 
     // After 4 seconds total (3 seconds of showing text), collapse it and add the ping
     const collapseTimer = setTimeout(() => {
