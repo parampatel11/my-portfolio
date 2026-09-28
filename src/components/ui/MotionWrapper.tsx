@@ -1,26 +1,28 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, HTMLMotionProps } from "framer-motion";
 import { ReactNode } from "react";
+
+// 1. Extend HTMLMotionProps to include all standard framer-motion props
+// along with your custom delay and duration props.
+interface MotionWrapperProps extends HTMLMotionProps<"div"> {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+  duration?: number;
+}
 
 export default function MotionWrapper({ 
   children, 
-  className = "", 
-  delay = 0,
-  duration = 0.6 
-}: { 
-  children: ReactNode; 
-  className?: string; 
-  delay?: number;
-  duration?: number;
-}) {
+  className, 
+  delay, 
+  duration, 
+  ...props // 2. Collect the rest of the props (initial, whileInView, etc.)
+}: MotionWrapperProps) {
   return (
     <motion.div 
-      className={className}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration, delay, ease: "easeOut" }}
+      className={className} 
+      {...props} // 3. Spread them onto the motion.div
     >
       {children}
     </motion.div>

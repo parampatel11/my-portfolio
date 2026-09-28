@@ -50,7 +50,8 @@ async function getContributions() {
         query: GITHUB_QUERY,
         variables: { userName: username, from: firstDay, to: lastDay },
       }),
-      next: { revalidate: 3600 }, 
+      // Change this to 0 for real-time testing, or leave it at 60 for 1-minute caching
+      next: { revalidate: 0 }, 
     });
 
     const data = await res.json();
@@ -101,7 +102,6 @@ export default async function GitHubContributions() {
   return (
     <section id="github" className="w-full scroll-mt-24 pb-8">
         
-      {/* Custom CSS for Cat Animations only (Fade-In handled by Framer Motion now) */}
       <style>{`
         @keyframes pawWalk {
           0% { opacity: 0; transform: scale(0.5); }
@@ -127,27 +127,38 @@ export default async function GitHubContributions() {
         .cat-container:hover .paw-4 { animation: pawWalk 2s infinite ease-in-out; animation-delay: 0.85s; }
       `}</style>
 
-      {/* Header Section wrapped in Motion */}
-      <MotionWrapper className="mb-8 flex flex-col items-center gap-4 text-center md:mb-10 md:items-start md:text-left">
+      {/* Header Section: Slides in from left */}
+      <MotionWrapper 
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="mb-8 flex flex-col items-center gap-4 text-center md:mb-10 md:items-start md:text-left"
+      >
         <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-sm font-medium text-green-400 backdrop-blur-md transition-transform hover:scale-105">
           <FaGithub size={16} />
           <span>Live GitHub Sync</span>
         </div>
         
         <h2 className="text-3xl font-extrabold text-white md:text-4xl">
-            Code <span className="bg-gradient-to-r from-yellow-400 to-green-400 bg-clip-text text-transparent">Activity</span>
-          </h2>
-          <p className="text-gray-400">
-            A real-time reflection of my commits, pull requests, and code reviews for {currentMonthName} {currentYear}.
-          </p>
+          Code <span className="bg-gradient-to-r from-yellow-400 to-green-400 bg-clip-text text-transparent">Activity</span>
+        </h2>
+        <p className="text-gray-400">
+          A real-time reflection of my commits, pull requests, and code reviews for {currentMonthName} {currentYear}.
+        </p>
       </MotionWrapper>
 
-      {/* Unified Premium Dashboard Card wrapped in Motion with a slight delay */}
-      <MotionWrapper delay={0.2} duration={0.8} className="group/card flex w-full flex-col overflow-hidden rounded-3xl border border-white/5 bg-[#0a0a0a]/40 shadow-2xl backdrop-blur-xl transition-colors duration-500 hover:border-white/10 lg:flex-row">
+      {/* Unified Premium Dashboard Card: Fades in */}
+      <MotionWrapper 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
+        className="group/card flex w-full flex-col overflow-hidden rounded-3xl border border-white/5 bg-[#0a0a0a]/40 shadow-2xl backdrop-blur-xl transition-colors duration-500 hover:border-white/10 lg:flex-row"
+      >
         
         {/* Left Side: Stats & Legend */}
         <div className="flex flex-col items-center justify-center border-b border-white/5 bg-white/[0.02] p-6 md:p-8 lg:w-1/3 lg:border-b-0 lg:border-r">
-          
           <AnimatedCatLogo />
 
           <p className="text-5xl font-black tracking-tighter text-white md:text-6xl">
@@ -174,9 +185,8 @@ export default async function GitHubContributions() {
           </div>
         </div>
 
-        {/* Right Side: The Calendar Grid (Fully Responsive) */}
+        {/* Right Side: The Calendar Grid (Restored!) */}
         <div className="flex w-full flex-col items-center justify-center p-4 sm:p-6 md:p-10 lg:w-2/3">
-          
           <div className="mx-auto w-full max-w-[260px] sm:max-w-[300px] md:max-w-[340px]">
             
             <div className="mb-2 grid grid-cols-7 gap-1 text-center text-[9px] font-bold uppercase tracking-wider text-gray-500 md:gap-2 md:text-[10px]">
