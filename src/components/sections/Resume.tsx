@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
-import { 
-  Briefcase, GraduationCap, Layout, ServerCog, Cloud, Layers, 
-  Brain, Box, Server, Database, FastForward, Zap, Code2, 
-  Settings, HardDrive, Wind, Workflow, BookOpen 
+import {
+  Briefcase, GraduationCap, Layout, ServerCog, Cloud, Layers,
+  Brain, Box, Server, Database, FastForward, Zap, Code2,
+  Settings, HardDrive, Wind, Workflow, BookOpen
 } from "lucide-react";
 
 // Tech dictionary for icons and colors
@@ -68,7 +68,7 @@ export default function Resume() {
 
   return (
     <section id="resume" className="w-full scroll-mt-24 relative">
-      
+
       {/* Background ambient glow for ultra-transparency effect */}
       <div className="absolute top-1/2 left-1/4 -z-10 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-green-500/5 blur-[120px] pointer-events-none" />
       <div className="absolute top-1/4 right-1/4 -z-10 h-[300px] w-[300px] rounded-full bg-yellow-500/5 blur-[100px] pointer-events-none" />
@@ -88,10 +88,10 @@ export default function Resume() {
       </motion.div>
 
       <div className="flex flex-col gap-20 lg:flex-row lg:gap-12">
-        
+
         {/* PART 1: SKILL SETS */}
         <div className="flex-1">
-          <motion.h3 
+          <motion.h3
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -132,7 +132,7 @@ export default function Resume() {
                         className="flex cursor-default items-center gap-1.5 rounded-full border border-white/10 bg-transparent px-3 py-1.5 text-xs font-medium text-gray-400 transition-all duration-300 hover:border-gray-500 hover:bg-white/[0.05] hover:text-white"
                       >
                         {techData ? (
-                          <motion.span 
+                          <motion.span
                             variants={{ hover: { scale: 1.2, rotate: [0, -10, 10, -5, 5, 0] } }}
                             transition={{ duration: 0.4 }}
                             className={techData.color}
@@ -154,7 +154,7 @@ export default function Resume() {
 
         {/* PART 2: MY BACKGROUND (TIMELINE) */}
         <div className="flex-1">
-          <motion.h3 
+          <motion.h3
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -167,14 +167,14 @@ export default function Resume() {
           </motion.h3>
 
           <div className="relative ml-4 space-y-8 border-l border-white/10 pb-4 md:ml-6">
-            
+
             {/* Glowing line overlay */}
-            <motion.div 
+            <motion.div
               initial={{ height: 0 }}
               whileInView={{ height: "100%" }}
               viewport={{ once: true }}
               transition={{ duration: 1.5, ease: "easeInOut" }}
-              className="absolute left-[-1px] top-0 w-[2px] bg-gradient-to-b from-yellow-400 via-green-400 to-transparent" 
+              className="absolute left-[-1px] top-0 w-[2px] bg-gradient-to-b from-yellow-400 via-green-400 to-transparent"
             />
 
             {timeline.map((item, index) => (
@@ -193,20 +193,20 @@ export default function Resume() {
 
                 {/* Content Card (Ultra Clean & Transparent) */}
                 <div className="relative flex flex-col rounded-2xl border border-transparent bg-transparent p-4 transition-all duration-300 group-hover:-translate-y-1 group-hover:border-white/10 group-hover:bg-white/[0.02] group-hover:backdrop-blur-md">
-                  
+
                   {/* Date Badge */}
                   <span className="mb-3 inline-flex w-fit items-center rounded-md border border-white/5 bg-white/[0.03] px-2.5 py-1 text-xs font-semibold tracking-wide text-gray-400 transition-colors group-hover:text-gray-200">
                     {item.date}
                   </span>
-                  
+
                   <h4 className="text-xl font-bold text-white transition-colors group-hover:text-yellow-400">
                     {item.title}
                   </h4>
-                  
+
                   <p className="mt-1 text-sm font-medium text-green-400/80">
                     {item.place}
                   </p>
-                  
+
                   {/* 1-Line Description */}
                   <p className="mt-3 text-sm text-gray-500 transition-colors group-hover:text-gray-300">
                     {item.desc}
