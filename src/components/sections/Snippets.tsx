@@ -80,7 +80,7 @@ export default function Snippet() {
         <h2 className="text-3xl font-extrabold text-white md:text-4xl">
           Code <span className="bg-gradient-to-r from-yellow-400 to-green-400 bg-clip-text text-transparent">Snippets</span>
         </h2>
-        <p className="text-gray-400">Select a stack to generate configurations</p>
+        <p className="text-gray-400">Select a stack to generate configurations.</p>
       </motion.div>
 
       <div className="flex flex-col items-start gap-10 w-full max-w-7xl mx-auto">
