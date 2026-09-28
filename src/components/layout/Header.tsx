@@ -132,6 +132,7 @@ export default function Header() {
     { name: "Home", href: "#home" },
     { name: "Projects", href: "#projects" },
     { name: "Resume", href: "#resume" },
+    { name: "Git Activity", href: "#github" },
     { name: "Contact", href: "#contact" },
   ];
 

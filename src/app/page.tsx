@@ -1,6 +1,7 @@
 import Hero from "@/components/sections/Hero";
 import Projects from "@/components/sections/Projects";
 import Resume from "@/components/sections/Resume";
+import GitHubContributions from "@/components/sections/GitHubContributions";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
 
@@ -14,6 +15,7 @@ export default function Home() {
         <Hero />
         <Projects />
         <Resume />
+        <GitHubContributions/>
         <Contact />
       </div>
 
