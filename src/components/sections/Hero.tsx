@@ -108,7 +108,7 @@ export default function Hero() {
           <h1 className="text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl">
             Hi, I'm <br />
             <span className="bg-gradient-to-r from-yellow-400 to-green-400 bg-clip-text text-transparent">
-              Param Patel.
+              Param Bhimani.
             </span>
           </h1>
           
