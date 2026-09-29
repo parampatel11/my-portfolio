@@ -1,7 +1,7 @@
 import Hero from "@/components/sections/Hero";
 import Projects from "@/components/sections/Projects";
 import Resume from "@/components/sections/Resume";
-import Snippet from "@/components/sections/Snippets";
+import Blogs from "@/components/sections/Blogs";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
 
@@ -13,7 +13,7 @@ export default function Home() {
         <Hero />
         <Projects />
         <Resume />
-        <Snippet/>
+        <Blogs/>
         <Contact />
       </div>
 

@@ -58,8 +58,8 @@ export default function Hero() {
   useEffect(() => {
     const timer = setTimeout(() => {
       const link = document.createElement("a");
-      link.href = "/1.png"; 
-      link.download = "1.png";
+      link.href = "/main.png"; 
+      link.download = "main.png";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
