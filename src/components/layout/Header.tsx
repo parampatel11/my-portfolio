@@ -29,19 +29,12 @@ const hoverPhrases = [
 
 // 5 Specific Transparent Glassmorphism Themes
 const tooltipThemes = [
-  // 1. Emerald
   { box: "border-emerald-500/40 bg-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.25)]", pointer: "border-emerald-500/40" },
-  // 2. Yellowish Amber type
   { box: "border-amber-500/40 bg-amber-500/20 shadow-[0_0_20px_rgba(245,158,11,0.25)]", pointer: "border-amber-500/40" },
-  // 3. Bluish type
   { box: "border-blue-500/40 bg-blue-500/20 shadow-[0_0_20px_rgba(59,130,246,0.25)]", pointer: "border-blue-500/40" },
-  // 4. Orange type
   { box: "border-orange-500/40 bg-orange-500/20 shadow-[0_0_20px_rgba(249,115,22,0.25)]", pointer: "border-orange-500/40" },
-  // 5. Red Apple type
   { box: "border-red-500/40 bg-red-500/20 shadow-[0_0_20px_rgba(239,68,68,0.25)]", pointer: "border-red-500/40" },
-  // 6. Vibrant Violet (Rich Purple)
   { box: "border-violet-500/40 bg-violet-500/20 shadow-[0_0_20px_rgba(139,92,246,0.25)]", pointer: "border-violet-500/40" },
-  // 7. Rose Pink
   { box: "border-rose-500/40 bg-rose-500/20 shadow-[0_0_20px_rgba(244,63,94,0.25)]", pointer: "border-rose-500/40" },
 ];
 
@@ -152,7 +145,7 @@ export default function Header() {
       initial={{ x: "-50%", y: -100, opacity: 0 }}
       animate={{ x: "-50%", y: 0, opacity: 1 }}
       transition={{
-        duration: 0.8,
+        duration: 0.6, // Synced perfectly with Hero animation duration
         ease: "easeOut",
         type: "spring",
         stiffness: 100,

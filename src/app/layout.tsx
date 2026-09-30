@@ -29,7 +29,7 @@ export default function RootLayout({
       <body 
         className={`${plusJakarta.className} text-gray-100 min-h-full flex flex-col selection:bg-yellow-400/30 selection:text-yellow-200 overflow-x-hidden`}
       >
-        <FloatingBackground /> 
+        {/* <FloatingBackground />  */}
         <Header />
         
         <main className="flex-1 flex flex-col w-full relative z-10">

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { 
   Brain, FileCode2, Code2, Wind, Box, Server, Settings, 
   Workflow, Database, HardDrive, Layers, Cloud, Zap, 
@@ -108,7 +109,7 @@ export default function Hero() {
           <h1 className="text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl">
             Hi, I'm <br />
             <span className="bg-gradient-to-r from-yellow-400 to-green-400 bg-clip-text text-transparent">
-              Param Bhimani.
+              Param Patel.
             </span>
           </h1>
           
@@ -169,10 +170,13 @@ export default function Hero() {
         <div className="group relative h-[320px] w-[260px] md:h-[420px] md:w-[320px]">
           
           <div className="relative h-full w-full overflow-hidden rounded-2xl border border-gray-800 bg-gray-900 transition-all duration-500 group-hover:border-green-500/30 group-hover:shadow-[0_0_40px_rgba(74,222,128,0.2)]">
-            <img 
+            <Image 
               src="/MyPhoto.png" 
               alt="Param Patel"
-              className="h-full w-full object-cover transition-all duration-700 group-hover:scale-105"
+              fill
+              priority
+              sizes="(max-width: 768px) 260px, 320px"
+              className="object-cover transition-all duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80" />
           </div>
