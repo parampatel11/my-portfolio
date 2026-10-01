@@ -5,7 +5,11 @@ import type { ReactNode } from "react";
 import {
   Briefcase, GraduationCap, Layout, ServerCog, Cloud, Layers,
   Brain, Box, Server, Database, FastForward, Zap, Code2,
-  Settings, HardDrive, Wind, Workflow, BookOpen
+  Settings, HardDrive, Wind, Workflow, BookOpen,
+  FileCode,
+  GitBranch,
+  GitCommit,
+  FileCode2
 } from "lucide-react";
 
 // Tech dictionary for icons and colors
@@ -19,7 +23,8 @@ const techConfig: Record<string, { icon: ReactNode; color: string }> = {
   "Docker": { icon: <Box size={14} />, color: "text-blue-400" },
   "AWS Cloud": { icon: <Cloud size={14} />, color: "text-orange-500" },
   "React": { icon: <Code2 size={14} />, color: "text-blue-400" },
-  "Javascript": { icon: <Code2 size={14} />, color: "text-yellow-400" },
+  "Javascript": { icon: <FileCode2 size={14} />, color: "text-yellow-400" },
+  "Typescript": { icon: <FileCode size={14} />, color: "text-blue-400" },
   "Express": { icon: <Settings size={14} />, color: "text-gray-300" },
   "Postgresql": { icon: <HardDrive size={14} />, color: "text-blue-500" },
   "ORM Prisma": { icon: <Layers size={14} />, color: "text-indigo-400" },
@@ -27,14 +32,16 @@ const techConfig: Record<string, { icon: ReactNode; color: string }> = {
   "BullMQ": { icon: <Layers size={14} />, color: "text-red-400" },
   "RabitMQ": { icon: <FastForward size={14} />, color: "text-orange-400" },
   "CI/CD": { icon: <Workflow size={14} />, color: "text-orange-400" },
+  "Git": { icon: <GitBranch size={14} />, color: "text-orange-400" },
+  "Github": { icon: <GitCommit size={14} />, color: "text-orange-400" },
 };
 
 export default function Resume() {
   // Categorized Skills
   const skillCategories = [
-    { title: "Frontend", icon: <Layout size={20} className="text-blue-400" />, skills: ["Javascript", "React", "Next JS", "Tailwind"] },
+    { title: "Frontend", icon: <Layout size={20} className="text-blue-400" />, skills: ["Javascript","Typescript", "React", "Next JS", "Tailwind"] },
     { title: "Backend", icon: <ServerCog size={20} className="text-green-400" />, skills: ["Node", "Express", "MongoDB", "Postgresql", "ORM Prisma"] },
-    { title: "Cloud & DevOps", icon: <Cloud size={20} className="text-orange-400" />, skills: ["AWS Cloud", "Docker", "CI/CD"] },
+    { title: "Cloud & DevOps", icon: <Cloud size={20} className="text-orange-400" />, skills: ["AWS Cloud", "Docker", "CI/CD", "Git","Github"] },
     { title: "Architecture & Others", icon: <Layers size={20} className="text-purple-400" />, skills: ["Gen AI", "Redis", "Kafka", "RabitMQ", "BullMQ"] },
   ];
 

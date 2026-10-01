@@ -6,7 +6,10 @@ import Image from "next/image";
 import { 
   Brain, FileCode2, Code2, Wind, Box, Server, Settings, 
   Workflow, Database, HardDrive, Layers, Cloud, Zap, 
-  FastForward, Repeat 
+  FastForward, Repeat, 
+  GitBranch,
+  GitCommit,
+  FileCode
 } from "lucide-react";
 
 export default function Hero() {
@@ -22,6 +25,7 @@ export default function Hero() {
   const skills = [
     { name: "Gen AI", icon: <Brain size={16} />, color: "text-purple-400", border: "border-purple-500/30", hoverBg: "hover:bg-purple-500/10" },
     { name: "Javascript", icon: <FileCode2 size={16} />, color: "text-yellow-400", border: "border-yellow-400/30", hoverBg: "hover:bg-yellow-400/10" },
+    { name: "Typescript", icon: <FileCode size={16} />, color: "text-blue-500", border: "border-blue-500/30", hoverBg: "hover:bg-blue-500/10" },
     { name: "React", icon: <Code2 size={16} />, color: "text-blue-400", border: "border-blue-400/30", hoverBg: "hover:bg-blue-400/10" },
     { name: "Next JS", icon: <Box size={16} />, color: "text-white", border: "border-gray-400/30", hoverBg: "hover:bg-gray-400/10" },
     { name: "Tailwind", icon: <Wind size={16} />, color: "text-cyan-400", border: "border-cyan-400/30", hoverBg: "hover:bg-cyan-400/10" },
@@ -37,7 +41,12 @@ export default function Hero() {
     { name: "Kafka", icon: <FastForward size={16} />, color: "text-gray-100", border: "border-gray-400/30", hoverBg: "hover:bg-gray-400/10" },
     { name: "RabitMQ", icon: <Repeat size={16} />, color: "text-orange-400", border: "border-orange-400/30", hoverBg: "hover:bg-orange-400/10" },
     { name: "BullMQ", icon: <Layers size={16} />, color: "text-red-400", border: "border-red-400/30", hoverBg: "hover:bg-red-400/10" },
+    { name: "Git", icon: <GitBranch size={16} />, color: "text-orange-500", border: "border-orange-500/30", hoverBg: "hover:bg-orange-500/10" },
+    { name: "Github", icon: <GitCommit size={16} />, color: "text-orange-500", border: "border-orange-500/30", hoverBg: "hover:bg-orange-500/10" },
   ];
+
+  // "Git": { icon: <GitBranch size={14} />, color: "text-orange-500" },
+  // "Github": { icon: <GitCommit size={14} />, color: "text-white" },
 
   // Rotate Title
   useEffect(() => {
@@ -172,7 +181,7 @@ export default function Hero() {
           <div className="relative h-full w-full overflow-hidden rounded-2xl border border-gray-800 bg-gray-900 transition-all duration-500 group-hover:border-green-500/30 group-hover:shadow-[0_0_40px_rgba(74,222,128,0.2)]">
             <Image 
               src="/MyPhoto.png" 
-              alt="Param Patel"
+              alt="Param Bhimani"
               fill
               priority
               sizes="(max-width: 768px) 260px, 320px"
