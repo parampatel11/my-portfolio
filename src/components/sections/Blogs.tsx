@@ -11,7 +11,7 @@ import {
   Brain,
   Camera,
   GitCommit,
-  GitBranch, // Added for Git
+  GitBranch, 
   FileCode2,
   Box,
   Wind,
@@ -115,7 +115,7 @@ export default function Blogs() {
     {
       title: "Scaling Node.js: When to Use BullMQ, RabbitMQ, and Kafka",
       description: "A deep dive into background jobs and messaging systems. Discover how to handle high-throughput microservices, queuing, and background tasks in backend systems.",
-      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
+      image: "/blog1.png",
       date: "Sep 2026",
       readTime: "6 min read",
       themeKey: "green",
@@ -138,7 +138,7 @@ export default function Blogs() {
     {
       title: "Building a Dynamic GitHub Contribution Calendar from Scratch",
       description: "A tutorial-style blog on how to fetch live commit statistics and render a dynamic, interactive contribution graph using React, Tailwind CSS, and Framer Motion.",
-      image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=800&auto=format&fit=crop",
+      image: "/blog2.png",
       date: "Aug 2026",
       readTime: "5 min read",
       themeKey: "gray",
@@ -161,7 +161,7 @@ export default function Blogs() {
     {
       title: "The Developer’s Guide to AI Image Generation",
       description: "Exploring the intersection of coding and AI art. Learn techniques for crafting photorealistic prompts and how to integrate these assets into web apps.",
-      image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=800&auto=format&fit=crop",
+      image: "/blog3.png",
       date: "Jul 2026",
       readTime: "7 min read",
       themeKey: "yellow",
@@ -184,7 +184,7 @@ export default function Blogs() {
     {
       title: "Integrating Generative AI into Full-Stack Web Apps",
       description: "Discussing the architecture of an AI-powered content engine, managing API limits, and seamlessly blending AI outputs into a React frontend.",
-      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop",
+      image: "/blog4.png",
       date: "Jun 2026",
       readTime: "8 min read",
       themeKey: "orange",
@@ -235,7 +235,6 @@ export default function Blogs() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
-              // Taller card height to accommodate static images beautifully
               className="relative h-[460px] w-full perspective-[1000px] group"
               style={{ perspective: "1000px" }}
             >
@@ -250,15 +249,15 @@ export default function Blogs() {
                   className={`absolute inset-0 flex flex-col overflow-hidden rounded-3xl border border-white/5 bg-gradient-to-b from-[#141414] to-[#0a0a0a] transition-all duration-300 ${currentTheme.frontHover} ${isFlipped ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
                   style={{ backfaceVisibility: "hidden" }}
                 >
-                  {/* Blog Image Container - Static with subtle scale on hover */}
-                  <div className="relative h-48 w-full overflow-hidden border-b border-white/5 bg-gray-900 shrink-0">
-                    <div className="absolute inset-0 z-10 bg-black/20 transition-colors duration-500 group-hover:bg-transparent pointer-events-none" />
+                  {/* Blog Image Container - Synced with group/img for isolated hover effects */}
+                  <div className="relative h-48 w-full overflow-hidden border-b border-white/5 bg-gray-900 shrink-0 group/img">
+                    <div className="absolute inset-0 z-10 bg-black/20 transition-colors duration-500 group-hover/img:bg-transparent pointer-events-none" />
                     
-                    {/* Normal Static Image with clean zoom transition */}
+                    {/* Normal Static Image with clean zoom transition matching Projects.tsx */}
                     <img
                       src={blog.image}
                       alt={blog.title}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover/img:scale-105"
                     />
 
                     {/* Badge */}

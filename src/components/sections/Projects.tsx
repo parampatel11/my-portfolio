@@ -16,7 +16,7 @@ import {
 
 // Helper dictionary mapping your core stack to icons and exact color schemes
 const techConfig: Record<string, { icon: ReactNode; color: string }> = {
-  "React": { icon: <Code2 size={14} />, color: "text-blue-400" }, // Updated to match your main stack colors
+  "React": { icon: <Code2 size={14} />, color: "text-blue-400" },
   "Next JS": { icon: <Box size={14} />, color: "text-white" },
   "Node": { icon: <Server size={14} />, color: "text-green-500" },
   "Express": { icon: <Settings size={14} />, color: "text-gray-300" },
@@ -294,15 +294,15 @@ export default function Projects() {
                   className={`absolute inset-0 flex flex-col overflow-hidden rounded-3xl border border-white/5 bg-gradient-to-b from-[#141414] to-[#0a0a0a] transition-all duration-300 ${currentTheme.frontHover} ${isFlipped ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
                   style={{ backfaceVisibility: "hidden" }}
                 >
-                  {/* Project Image Container - Grouped separately (group/img) so ONLY image hover triggers scroll */}
+                  {/* Project Image Container */}
                   <div className="relative h-48 w-full overflow-hidden border-b border-white/5 bg-gray-900 shrink-0 group/img">
                     <div className="absolute inset-0 z-10 bg-black/20 transition-colors duration-500 group-hover/img:bg-transparent pointer-events-none" />
                     
-                    {/* 5-Second Scrolling Image */}
+                    {/* Standard Static Image with subtle hover zoom */}
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="h-full w-full object-cover object-top transition-[object-position] duration-1000 ease-out group-hover/img:duration-[5000ms] group-hover/img:ease-linear group-hover/img:object-bottom"
+                      className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover/img:scale-105"
                     />
 
                     {/* Floating Action Buttons */}
