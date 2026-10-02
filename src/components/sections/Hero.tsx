@@ -65,8 +65,8 @@ export default function Hero() {
   useEffect(() => {
     const timer = setTimeout(() => {
       const link = document.createElement("a");
-      link.href = "/main.png"; 
-      link.download = "main.png";
+      link.href = "/CV - Param Bhimani.pdf"; 
+      link.download = "/CV - Param Bhimani.pdf";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
