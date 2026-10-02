@@ -2,8 +2,8 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Menu, X } from "lucide-react";
 
 // 1. TypeScript Interface for the SVG Icon
 interface WhatsAppIconProps {
@@ -50,11 +50,39 @@ const HireMeBtn = ({ whatsappLink, isMobile, onClick }: HireMeBtnProps) => {
   const [phrase, setPhrase] = useState(hoverPhrases[0]);
   const [theme, setTheme] = useState(tooltipThemes[0]);
 
+  // Pools to track which items haven't been shown yet in the current cycle
+  const availablePhrases = useRef<string[]>([...hoverPhrases]);
+  const availableThemes = useRef<typeof tooltipThemes>([...tooltipThemes]);
+
+  useEffect(() => {
+    // Remove the default initial phrase & theme from the first cycle 
+    // so they don't repeat on the very first hover
+    availablePhrases.current = hoverPhrases.filter((p) => p !== hoverPhrases[0]);
+    availableThemes.current = tooltipThemes.filter((t) => t !== tooltipThemes[0]);
+  }, []);
+
   const handleHover = () => {
-    const randomPhrase = hoverPhrases[Math.floor(Math.random() * hoverPhrases.length)];
-    const randomTheme = tooltipThemes[Math.floor(Math.random() * tooltipThemes.length)];
-    setPhrase(randomPhrase);
-    setTheme(randomTheme);
+    // Refill the pool if everything has been used
+    if (availablePhrases.current.length === 0) {
+      // Filter out the currently displayed phrase so it doesn't immediately repeat on refill
+      availablePhrases.current = hoverPhrases.filter((p) => p !== phrase);
+    }
+    if (availableThemes.current.length === 0) {
+      availableThemes.current = tooltipThemes.filter((t) => t !== theme);
+    }
+
+    // Pick a random phrase from the remaining pool and remove it
+    const pIndex = Math.floor(Math.random() * availablePhrases.current.length);
+    const selectedPhrase = availablePhrases.current[pIndex];
+    availablePhrases.current.splice(pIndex, 1);
+
+    // Pick a random theme from the remaining pool and remove it
+    const tIndex = Math.floor(Math.random() * availableThemes.current.length);
+    const selectedTheme = availableThemes.current[tIndex];
+    availableThemes.current.splice(tIndex, 1);
+
+    setPhrase(selectedPhrase);
+    setTheme(selectedTheme);
   };
 
   return (
@@ -64,8 +92,8 @@ const HireMeBtn = ({ whatsappLink, isMobile, onClick }: HireMeBtnProps) => {
       }`}
       onMouseEnter={handleHover}
     >
-      {/* 1s Delayed Dynamic Colorful Tooltip Popup */}
-      <div className="pointer-events-none absolute -bottom-14 left-1/2 z-[100] flex -translate-x-1/2 -translate-y-2 items-center justify-center opacity-0 transition-all duration-300 ease-out delay-0 group-hover/hire-btn:translate-y-0 group-hover/hire-btn:opacity-100 group-hover/hire-btn:delay-1000">
+      {/* Quick Dynamic Colorful Tooltip Popup */}
+      <div className="pointer-events-none absolute -bottom-14 left-1/2 z-[100] flex -translate-x-1/2 -translate-y-2 items-center justify-center opacity-0 transition-all duration-300 ease-out delay-0 group-hover/hire-btn:translate-y-0 group-hover/hire-btn:opacity-100 group-hover/hire-btn:delay-150">
         
         {/* Colorful Glassmorphism Box */}
         <div className={`relative whitespace-nowrap rounded-lg border px-3.5 py-1.5 text-xs font-semibold tracking-wide text-white backdrop-blur-md transition-colors duration-300 ${theme.box}`}>
@@ -85,8 +113,8 @@ const HireMeBtn = ({ whatsappLink, isMobile, onClick }: HireMeBtnProps) => {
           isMobile ? "h-12 w-full" : "h-11 w-32"
         }`}
       >
-        {/* Animated Spin Border */}
-        <span className="absolute inset-[-1000%] animate-[spin_2.5s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,#4ade80_50%,#facc15_100%)] opacity-80 transition-opacity group-hover/btn:opacity-100" />
+        {/* Custom Animated Spin Border: 2s Fast, 2s Slow */}
+        <span className="absolute inset-[-1000%] animate-spin-custom bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,#4ade80_50%,#facc15_100%)] opacity-80 transition-opacity group-hover/btn:opacity-100" />
 
         {/* Inner Black Pill */}
         <span className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-[#0a0a0a] px-6 py-1 text-sm font-bold text-white backdrop-blur-3xl transition-colors group-hover/btn:bg-[#111111]">
@@ -95,17 +123,11 @@ const HireMeBtn = ({ whatsappLink, isMobile, onClick }: HireMeBtnProps) => {
             Hire Me
           </span>
 
-          {/* Icons Wrapper */}
+          {/* Icons Wrapper (Only WhatsApp icon now, perfectly centered) */}
           <span className="absolute flex h-full w-full translate-y-full items-center justify-center opacity-0 transition-all duration-300 ease-out group-hover/btn:translate-y-0 group-hover/btn:opacity-100">
             
             {/* WhatsApp Icon */}
-            <WhatsAppIcon className="h-[22px] w-[22px] text-green-400 drop-shadow-[0_0_8px_rgba(74,222,128,0.4)] transition-all duration-300 ease-out delay-0 group-hover/hire-btn:-translate-x-3.5 group-hover/hire-btn:scale-110 group-hover/hire-btn:drop-shadow-[0_0_16px_rgba(74,222,128,0.9)] group-hover/hire-btn:delay-1000" />
-            
-            {/* Bold Green Arrow */}
-            <ArrowRight 
-              strokeWidth={2.5} 
-              className="absolute h-6 w-6 -translate-x-8 scale-50 text-green-400 opacity-0 drop-shadow-[0_0_8px_rgba(74,222,128,0.4)] transition-all duration-300 ease-out delay-0 group-hover/hire-btn:translate-x-4 group-hover/hire-btn:scale-110 group-hover/hire-btn:opacity-100 group-hover/hire-btn:drop-shadow-[0_0_16px_rgba(74,222,128,0.9)] group-hover/hire-btn:delay-1000" 
-            />
+            <WhatsAppIcon className="h-[22px] w-[22px] text-green-400 drop-shadow-[0_0_8px_rgba(74,222,128,0.4)] transition-all duration-300 ease-out delay-0 group-hover/hire-btn:scale-110 group-hover/hire-btn:drop-shadow-[0_0_16px_rgba(74,222,128,0.9)] group-hover/hire-btn:delay-150" />
             
           </span>
         </span>
@@ -141,103 +163,119 @@ export default function Header() {
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${prefilledMessage}`;
 
   return (
-    <motion.header
-      initial={{ x: "-50%", y: -100, opacity: 0 }}
-      animate={{ x: "-50%", y: 0, opacity: 1 }}
-      transition={{
-        duration: 0.6, // Synced perfectly with Hero animation duration
-        ease: "easeOut",
-        type: "spring",
-        stiffness: 100,
-      }}
-      className={`fixed left-1/2 top-4 z-50 flex w-[90%] max-w-5xl flex-col rounded-2xl border border-white/5 transition-all duration-500 md:top-6 md:w-[95%] ${
-        isScrolled || isMobileMenuOpen
-          ? "bg-[#0a0a0a]/30 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] backdrop-blur-2xl"
-          : "bg-transparent backdrop-blur-sm"
-      }`}
-    >
-      {/* TOP BAR */}
-      <div className="flex w-full items-center justify-between px-5 py-2.5 md:px-6 md:py-3">
-        {/* Logo */}
-        <Link
-          href="#home"
-          onClick={() => setIsMobileMenuOpen(false)}
-          className="group relative z-10 shrink-0 text-lg font-bold tracking-tight text-white transition-colors md:text-xl"
-        >
-          Param
-          <span className="text-yellow-400 transition-colors group-hover:text-green-400">
-            .
-          </span>
-        </Link>
+    <>
+      {/* Inject custom fast-slow keyframe animation */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @keyframes spin-fast-slow {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(300deg); }
+            100% { transform: rotate(360deg); }
+          }
+          .animate-spin-custom {
+            animation: spin-fast-slow 4s linear infinite;
+          }
+        `
+      }} />
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden items-center gap-3 md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="group relative rounded-full border border-green-500/20 bg-green-500/10 px-4 py-2 text-sm font-medium text-gray-200 backdrop-blur-md transition-all duration-300 hover:border-green-400/50 hover:bg-green-500/20 hover:text-white hover:shadow-[0_0_15px_rgba(74,222,128,0.2)]"
-            >
-              {link.name}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Right Side Actions */}
-        <div className="relative z-10 flex items-center gap-3">
-          {/* Desktop Hire Me Button */}
-          <HireMeBtn whatsappLink={whatsappLink} isMobile={false} />
-
-          {/* Mobile Hamburger */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition-colors hover:bg-white/10 hover:text-white md:hidden"
-            aria-label="Toggle Menu"
+      <motion.header
+        initial={{ x: "-50%", y: -100, opacity: 0 }}
+        animate={{ x: "-50%", y: 0, opacity: 1 }}
+        transition={{
+          duration: 0.6,
+          ease: "easeOut",
+          type: "spring",
+          stiffness: 100,
+        }}
+        className={`fixed left-1/2 top-4 z-50 flex w-[90%] max-w-5xl flex-col rounded-2xl border border-white/5 transition-all duration-500 md:top-6 md:w-[95%] ${
+          isScrolled || isMobileMenuOpen
+            ? "bg-[#0a0a0a]/30 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] backdrop-blur-2xl"
+            : "bg-transparent backdrop-blur-sm"
+        }`}
+      >
+        {/* TOP BAR */}
+        <div className="flex w-full items-center justify-between px-5 py-2.5 md:px-6 md:py-3">
+          {/* Logo */}
+          <Link
+            href="#home"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="group relative z-10 shrink-0 text-lg font-bold tracking-tight text-white transition-colors md:text-xl"
           >
-            {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
-          </button>
+            Param
+            <span className="text-yellow-400 transition-colors group-hover:text-green-400">
+              .
+            </span>
+          </Link>
+
+          {/* Desktop Navigation Links */}
+          <nav className="hidden items-center gap-3 md:flex">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="group relative rounded-full border border-green-500/20 bg-green-500/10 px-4 py-2 text-sm font-medium text-gray-200 backdrop-blur-md transition-all duration-300 hover:border-green-400/50 hover:bg-green-500/20 hover:text-white hover:shadow-[0_0_15px_rgba(74,222,128,0.2)]"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Right Side Actions */}
+          <div className="relative z-10 flex items-center gap-3">
+            {/* Desktop Hire Me Button */}
+            <HireMeBtn whatsappLink={whatsappLink} isMobile={false} />
+
+            {/* Mobile Hamburger */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition-colors hover:bg-white/10 hover:text-white md:hidden"
+              aria-label="Toggle Menu"
+            >
+              {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* MOBILE DROPDOWN MENU */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="w-full overflow-hidden md:hidden"
-          >
+        {/* MOBILE DROPDOWN MENU */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
             <motion.div
-              initial={{ y: -20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -20, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              className="flex flex-col gap-3 border-t border-white/10 px-4 pb-5 pt-3"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="w-full overflow-hidden md:hidden"
             >
-              {/* Navigation Links */}
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="rounded-xl border border-green-500/20 bg-green-500/10 px-4 py-2.5 text-center text-sm font-medium text-gray-200 transition-colors hover:bg-green-500/20 hover:text-white"
-                >
-                  {link.name}
-                </Link>
-              ))}
+              <motion.div
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -20, opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="flex flex-col gap-3 border-t border-white/10 px-4 pb-5 pt-3"
+              >
+                {/* Navigation Links */}
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="rounded-xl border border-green-500/20 bg-green-500/10 px-4 py-2.5 text-center text-sm font-medium text-gray-200 transition-colors hover:bg-green-500/20 hover:text-white"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
 
-              {/* Mobile Hire Me Button */}
-              <HireMeBtn
-                whatsappLink={whatsappLink}
-                isMobile={true}
-                onClick={() => setIsMobileMenuOpen(false)}
-              />
+                {/* Mobile Hire Me Button */}
+                <HireMeBtn
+                  whatsappLink={whatsappLink}
+                  isMobile={true}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                />
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+          )}
+        </AnimatePresence>
+      </motion.header>
+    </>
   );
 }

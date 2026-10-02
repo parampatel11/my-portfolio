@@ -45,9 +45,6 @@ export default function Hero() {
     { name: "Github", icon: <GitCommit size={16} />, color: "text-orange-500", border: "border-orange-500/30", hoverBg: "hover:bg-orange-500/10" },
   ];
 
-  // "Git": { icon: <GitBranch size={14} />, color: "text-orange-500" },
-  // "Github": { icon: <GitCommit size={14} />, color: "text-white" },
-
   // Rotate Title
   useEffect(() => {
     const titleInterval = setInterval(() => {
@@ -118,7 +115,7 @@ export default function Hero() {
           <h1 className="text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl">
             Hi, I'm <br />
             <span className="bg-gradient-to-r from-yellow-400 to-green-400 bg-clip-text text-transparent">
-              Param Patel.
+              Param Bhimani.
             </span>
           </h1>
           

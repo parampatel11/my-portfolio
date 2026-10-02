@@ -12,7 +12,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Param Patel | Full Stack Architect",
+  title: "Param Bhimani | Full Stack Architect",
   description: "Executive class web developer portfolio showcasing Gen AI, React, Next.js, and Cloud architecture.",
 };
 
